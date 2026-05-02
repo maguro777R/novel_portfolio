@@ -3,24 +3,10 @@ import { news } from "../data/site";
 
 type NewsRow = {
   date: string;
-  category: "掲載" | "寄稿" | "連載" | "お知らせ";
+  category: (typeof news)[number]["category"];
   title: string;
   body: string;
-};
-
-const pageLocalNews: NewsRow[] = [
-  {
-    date: "2025.06.18",
-    category: "連載",
-    title: "連載エッセイ更新",
-    body: "Webメディア「灯台」にて、連載エッセイ「午前四時の机」第6回を公開しました。",
-  },
-];
-
-const categoryByTitle: Record<string, NewsRow["category"]> = {
-  ポートフォリオを公開しました: "お知らせ",
-  新作短編を準備中です: "掲載",
-  中編小説を寄稿しました: "寄稿",
+  url: string;
 };
 
 function formatDate(date: string) {
@@ -30,11 +16,11 @@ function formatDate(date: string) {
 const newsRows: NewsRow[] = [
   ...news.map((item) => ({
     date: formatDate(item.date),
-    category: categoryByTitle[item.title] ?? "お知らせ",
+    category: item.category,
     title: item.title,
     body: item.body,
+    url: item.url,
   })),
-  ...pageLocalNews,
 ].sort((a, b) => b.date.localeCompare(a.date));
 
 function Arrow() {
@@ -78,20 +64,24 @@ function NewsItem({ item }: { item: NewsRow }) {
         {item.category}
       </span>
       <div>
-        <h2 className="font-serif text-[clamp(22px,1.9vw,28px)] font-semibold leading-snug text-[var(--color-ink)]">
-          {item.title}
-        </h2>
+        <a href={item.url} rel="noreferrer" target="_blank">
+          <h2 className="font-serif text-[clamp(22px,1.9vw,28px)] font-semibold leading-snug text-[var(--color-ink)] [overflow-wrap:anywhere] transition-colors hover:text-[var(--color-gold-text)]">
+            {item.title}
+          </h2>
+        </a>
         <p className="mt-1 text-[14px] leading-7 text-[var(--color-deep)]">
           {item.body}
         </p>
       </div>
-      <button
+      <a
         aria-label={`${item.title}を読む`}
         className="self-center justify-self-start px-1 py-2 sm:justify-self-end sm:pt-4"
-        type="button"
+        href={item.url}
+        rel="noreferrer"
+        target="_blank"
       >
         <Arrow />
-      </button>
+      </a>
     </article>
   );
 }
@@ -119,7 +109,7 @@ export default function News() {
           <p className="mt-8 max-w-[45rem] font-serif text-lg leading-9 text-[var(--color-deep)]">
             活動や掲載情報、更新のお知らせをお届けします。
             <br className="hidden sm:block" />
-            今後の予定や新しい情報は、こちらで随時ご案内いたします。
+            カクヨムの作品ページと近況ノートで確認できる情報を掲載しています。
           </p>
         </div>
       </section>
@@ -127,10 +117,10 @@ export default function News() {
       <section className="page-frame">
         <div className="-mt-px flex flex-wrap sm:flex-nowrap">
           <FilterButton active>すべて</FilterButton>
-          <FilterButton>掲載</FilterButton>
-          <FilterButton>寄稿</FilterButton>
-          <FilterButton>連載</FilterButton>
-          <FilterButton>お知らせ</FilterButton>
+          <FilterButton>更新</FilterButton>
+          <FilterButton>完結</FilterButton>
+          <FilterButton>選考通過</FilterButton>
+          <FilterButton>告知</FilterButton>
         </div>
 
         <div className="pt-7">
@@ -139,19 +129,9 @@ export default function News() {
           ))}
         </div>
 
-        <nav
-          aria-label="お知らせページ"
-          className="mt-7 flex items-center justify-center gap-8 pb-8 font-serif text-sm text-[var(--color-deep)]"
-        >
-          <span className="grid h-11 w-11 place-items-center border border-[var(--color-gold)] bg-white">
-            1
-          </span>
-          <span>2</span>
-          <button className="flex items-center gap-5" type="button">
-            次へ
-            <Arrow />
-          </button>
-        </nav>
+        <p className="mt-7 pb-8 text-center text-sm leading-7 text-[var(--color-muted)]">
+          お知らせはカクヨム公開情報をもとに掲載しています。
+        </p>
       </section>
     </div>
   );

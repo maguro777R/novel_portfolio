@@ -48,18 +48,14 @@ function ProfileColumns() {
     <div className="grid gap-8 border-t border-[var(--color-hairline)] pt-9 lg:grid-cols-[1.2fr_0.8fr_1.05fr_1.1fr]">
       <ColumnSection icon="▥" title="略歴">
         <dl className="grid grid-cols-[4.5rem_1fr] gap-x-3 gap-y-2">
-          <dt>1988年</dt>
-          <dd>東京都生まれ</dd>
-          <dt>2011年</dt>
-          <dd>早稲田大学文学部卒業</dd>
-          <dt>2013年</dt>
-          <dd>小説の執筆を開始</dd>
-          <dt>2016年</dt>
-          <dd>文芸誌にて短編が掲載</dd>
           <dt>2019年</dt>
-          <dd>初の書籍を刊行</dd>
-          <dt>現在</dt>
-          <dd>小説・エッセイの執筆を中心に、寄稿・連載・企画など幅広く活動中</dd>
+          <dd>カクヨムに登録</dd>
+          <dt>2023年</dt>
+          <dd>異世界ファンタジー、ダンジョン配信系作品を公開</dd>
+          <dt>2025年</dt>
+          <dd>百合・ダンジョン配信系の完結作を複数公開</dd>
+          <dt>2026年</dt>
+          <dd>カクヨムコン11中間選考通過作と最新連載を公開</dd>
         </dl>
       </ColumnSection>
 
@@ -75,12 +71,11 @@ function ProfileColumns() {
 
       <ColumnSection icon="▤" title="対応可能な仕事">
         <ul className="list-disc space-y-2 pl-5">
-          <li>小説の執筆（文芸・大衆問わず）</li>
-          <li>エッセイ・コラムの執筆</li>
-          <li>雑誌・ウェブメディアへの寄稿</li>
-          <li>連載の執筆</li>
-          <li>書籍企画・構成</li>
-          <li>取材・インタビュー対応</li>
+          <li>現代ファンタジー</li>
+          <li>異世界ファンタジー</li>
+          <li>百合・ガールズラブ系作品</li>
+          <li>ダンジョン配信もの</li>
+          <li>TSF・女体化要素のある作品</li>
         </ul>
       </ColumnSection>
 
@@ -88,10 +83,9 @@ function ProfileColumns() {
         <ul className="space-y-3">
           {credits.map((credit) => (
             <li key={`${credit.year}-${credit.title}`}>
-              {credit.venue}「{credit.title}」
+              {credit.venue}：{credit.category}「{credit.title}」
             </li>
           ))}
-          <li>小説集『水面の名前』（書籍）</li>
         </ul>
       </ColumnSection>
     </div>
@@ -130,14 +124,14 @@ export default function Profile() {
                 {profile.nameJa}
               </h2>
               <p className="mt-4 font-serif text-xl text-[var(--color-gold-text)]">
-                {profile.role}・文筆家
+                {profile.role}・{profile.handle}
               </p>
               <p className="mt-7 max-w-[46rem] text-[16px] leading-9 text-[var(--color-deep)]">
-                静かな日常の中にひそむ違和感や、言葉にならない感情の輪郭を描いています。
+                カクヨム登録日：{profile.registeredAt.split("-").join(".")}
                 <br />
                 {profile.bio}
                 <br />
-                読者の心にそっと触れるような文章を目指しています。
+                公開プロフィールで確認できる外部リンクとして X を掲載しています。
               </p>
             </div>
 
@@ -150,15 +144,17 @@ export default function Profile() {
                 <span aria-hidden="true" className="text-2xl text-[var(--color-ink)]">
                   ✉
                 </span>
-                執筆依頼・掲載相談など、どうぞお気軽にご連絡ください。
+                最新情報はカクヨム作者ページと X でご確認ください。
               </p>
-              <Link
+              <a
                 className="inline-flex h-[58px] min-w-[260px] items-center justify-center bg-[var(--color-gold)] px-9 font-serif text-lg text-white transition-opacity hover:opacity-90"
-                to="/contact"
+                href={profile.kakuyomuUrl}
+                rel="noreferrer"
+                target="_blank"
               >
-                問い合わせる
+                カクヨムを見る
                 <Arrow />
-              </Link>
+              </a>
             </div>
           </article>
         </div>

@@ -2,49 +2,24 @@ import booksVase from "../assets/generated/books-vase.png";
 import manuscriptHero from "../assets/generated/manuscript-hero.png";
 import urbanRiverside from "../assets/generated/urban-riverside.png";
 import waterSurface from "../assets/generated/water-surface.png";
+import { notes } from "../data/site";
 
 type NoteArticle = {
   title: string;
   date: string;
-  category: "エッセイ" | "創作ノート";
+  category: (typeof notes)[number]["category"];
   excerpt: string;
   image: string;
+  url: string;
 };
 
-const noteArticles: NoteArticle[] = [
-  {
-    title: "午前四時の机",
-    date: "2024.06.12",
-    category: "エッセイ",
-    excerpt:
-      "静けさがもっとも深い時間帯に、机に向かう。薄い光のなかで、昨日の自分から手紙が届くような気がする。",
-    image: manuscriptHero,
-  },
-  {
-    title: "余白のある文章について",
-    date: "2024.05.21",
-    category: "創作ノート",
-    excerpt:
-      "書かないことも、書くことの一部だと思う。空白は、読者の時間をそっと置いていくための場所。",
-    image: waterSurface,
-  },
-  {
-    title: "都市の記憶を歩く",
-    date: "2024.04.10",
-    category: "エッセイ",
-    excerpt:
-      "地図には残らない記憶の層が、街をかたちづくっている。歩くことは、それらを静かにたどる行為だ。",
-    image: urbanRiverside,
-  },
-  {
-    title: "書く前に読むもの",
-    date: "2024.03.02",
-    category: "創作ノート",
-    excerpt:
-      "書くためには、まず読むこと。言葉の海に身をひたし、よい声を自分の中に見つけていく。",
-    image: booksVase,
-  },
-];
+const noteImages = [manuscriptHero, waterSurface, urbanRiverside, booksVase];
+
+const noteArticles: NoteArticle[] = notes.map((note, index) => ({
+  ...note,
+  date: note.date.split("-").join("."),
+  image: noteImages[index % noteImages.length],
+}));
 
 function Arrow({ className = "" }: { className?: string }) {
   return (
@@ -89,20 +64,24 @@ function NoteRow({ article }: { article: NoteArticle }) {
           <span className="inline-flex h-7 min-w-[92px] items-center justify-center border border-[var(--color-gold)] px-4 font-serif text-xs text-[var(--color-gold-text)]">
             {article.category}
           </span>
-          <h2 className="mt-3 font-serif text-[clamp(24px,2.1vw,31px)] font-semibold leading-snug text-[var(--color-ink)]">
-            {article.title}
-          </h2>
+          <a href={article.url} rel="noreferrer" target="_blank">
+            <h2 className="mt-3 font-serif text-[clamp(24px,2.1vw,31px)] font-semibold leading-snug text-[var(--color-ink)] [overflow-wrap:anywhere] transition-colors hover:text-[var(--color-gold-text)]">
+              {article.title}
+            </h2>
+          </a>
           <p className="mt-2 text-[14px] leading-7 text-[var(--color-deep)]">
             {article.excerpt}
           </p>
         </div>
-        <button
+        <a
           aria-label={`${article.title}を読む`}
           className="self-center justify-self-start px-1 py-2 sm:justify-self-end"
-          type="button"
+          href={article.url}
+          rel="noreferrer"
+          target="_blank"
         >
           <Arrow />
-        </button>
+        </a>
       </div>
     </article>
   );
@@ -120,18 +99,17 @@ function SidePanel() {
         </h2>
       </div>
       <p className="mt-6 text-[15px] leading-8 text-[var(--color-deep)]">
-        創作の過程で生まれた思索や、日常のなかで大切にしたいことを綴っています。
-        作品とあわせてお楽しみいただければ幸いです。
+        カクヨムの近況ノートから、コンテスト参加、作品更新、完結報告に関する公開情報をまとめています。
       </p>
 
       <PanelList
         className="mt-10"
-        items={["すべての投稿　（12）", "エッセイ　（7）", "創作ノート　（5）"]}
+        items={["すべての投稿　（4）", "コンテスト　（2）", "作品告知　（1）", "近況ノート　（1）"]}
         title="カテゴリー"
       />
       <PanelList
         className="mt-10"
-        items={["2024年（8）", "2023年（3）", "2022年（1）"]}
+        items={["2026年（1）", "2025年（3）"]}
         title="アーカイブ"
       />
 
@@ -184,9 +162,9 @@ export default function Notes() {
           </p>
         </div>
         <p className="mt-6 max-w-[48rem] font-serif text-lg leading-9 text-[var(--color-deep)]">
-          日々の思索や、書くことにまつわること、暮らしの中で出会った言葉。
+          カクヨム近況ノートから、公開されている活動報告を掲載しています。
           <br className="hidden sm:block" />
-          創作のメモやエッセイを綴っています。
+          コンテスト参加、作品告知、完結報告を確認できます。
         </p>
 
         <div className="mt-8 grid gap-10 lg:grid-cols-[1fr_360px] xl:grid-cols-[1fr_400px]">
@@ -194,8 +172,8 @@ export default function Notes() {
             <div className="flex flex-col gap-5 border-b border-[var(--color-hairline)] pb-0 sm:flex-row sm:items-end sm:justify-between">
               <div className="flex flex-wrap">
                 <FilterButton active>すべて</FilterButton>
-                <FilterButton>エッセイ</FilterButton>
-                <FilterButton>創作ノート</FilterButton>
+                <FilterButton>コンテスト</FilterButton>
+                <FilterButton>作品告知</FilterButton>
               </div>
               <button
                 className="h-[54px] min-w-[148px] border border-[var(--color-hairline)] bg-white/35 px-6 text-left font-serif text-[15px] text-[var(--color-deep)]"
@@ -214,20 +192,9 @@ export default function Notes() {
               ))}
             </div>
 
-            <nav
-              aria-label="ノートページ"
-              className="mt-6 flex items-center justify-center gap-7 pb-8 font-serif text-sm"
-            >
-              <span className="grid h-11 w-11 place-items-center border border-[var(--color-gold)] bg-white">
-                1
-              </span>
-              <span>2</span>
-              <span>3</span>
-              <button className="flex items-center gap-5" type="button">
-                次へ
-                <Arrow />
-              </button>
-            </nav>
+            <p className="mt-6 pb-8 text-center text-sm leading-7 text-[var(--color-muted)]">
+              各項目のリンクからカクヨム近況ノートを開けます。
+            </p>
           </div>
 
           <SidePanel />

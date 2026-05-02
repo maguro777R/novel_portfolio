@@ -36,15 +36,15 @@ function WorkRow({ index, work }: { index: number; work: (typeof works)[number] 
       />
       <div className="grid gap-6 px-7 py-7 lg:grid-cols-[1.65fr_164px_132px_170px_154px] lg:items-center lg:px-8 lg:py-0">
         <div>
-          <h2 className="font-serif text-[32px] font-semibold leading-snug text-[var(--color-ink)]">
+          <h2 className="font-serif text-[clamp(24px,3vw,30px)] font-semibold leading-snug text-[var(--color-ink)] [overflow-wrap:anywhere]">
             {work.title}
           </h2>
           <p className="mt-3 max-w-[32rem] text-[14px] leading-7 text-[var(--color-deep)]">
-            {work.summary}
+            {work.catchcopy}
           </p>
         </div>
-        <Meta label="ジャンル" value={work.form} />
-        <Meta label="発表年" value={`${work.year}年`} />
+        <Meta label="ジャンル" value={work.genre} />
+        <Meta label="形式" value={work.form} />
         <Meta label="掲載状況" value={work.status} />
         <Link
           className="flex items-center justify-start text-sm font-medium text-[var(--color-gold-text)] transition-colors hover:text-[var(--color-ink)] lg:justify-end"
@@ -81,23 +81,23 @@ export default function Works() {
             </p>
           </div>
           <p className="mt-7 text-[15px] leading-8 text-[var(--color-deep)]">
-            小説・エッセイなど、これまでに発表した作品の一覧です。
+            カクヨムで公開している作品から、現代ファンタジー、異世界ファンタジー、百合・ダンジョン配信系を中心にまとめています。
           </p>
         </div>
 
         <div className="mt-10 flex flex-col gap-5 border-b border-[var(--color-hairline)] pb-0 lg:flex-row lg:items-end lg:justify-between">
           <div className="flex flex-wrap">
             <FilterButton active>すべて</FilterButton>
-            <FilterButton>小説</FilterButton>
-            <FilterButton>エッセイ</FilterButton>
-            <FilterButton>連載</FilterButton>
+            <FilterButton>現代ファンタジー</FilterButton>
+            <FilterButton>異世界ファンタジー</FilterButton>
+            <FilterButton>百合</FilterButton>
           </div>
           <div className="flex items-center gap-8">
             <button
               className="h-[52px] min-w-[178px] border border-[var(--color-hairline)] bg-transparent px-7 text-sm text-[var(--color-deep)]"
               type="button"
             >
-              新しい順
+              更新順
               <span aria-hidden="true" className="ml-8">⌄</span>
             </button>
             <button
@@ -116,22 +116,9 @@ export default function Works() {
           ))}
         </div>
 
-        <nav
-          aria-label="作品ページ"
-          className="mt-5 flex items-center justify-center gap-8 pb-8 text-sm"
-        >
-          <span className="grid h-11 w-11 place-items-center border border-[var(--color-gold)] bg-white text-[var(--color-ink)]">
-            1
-          </span>
-          <span>2</span>
-          <Link
-            className="flex items-center text-[var(--color-ink)] transition-colors hover:text-[var(--color-gold-text)]"
-            to="/works?page=2"
-          >
-            次へ
-            <Arrow />
-          </Link>
-        </nav>
+        <p className="mt-6 pb-8 text-center text-sm leading-7 text-[var(--color-muted)]">
+          掲載情報はカクヨム上で確認できる公開情報をもとにしています。
+        </p>
       </section>
 
       <footer className="border-t border-[var(--color-hairline)] py-7">
