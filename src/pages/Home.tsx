@@ -10,7 +10,7 @@ function WorkCard({ work }: { work: (typeof works)[number] }) {
   return (
     <article className="flex min-h-[196px] flex-col border border-[var(--color-hairline)] bg-white px-7 py-7 shadow-[0_6px_18px_rgba(30,30,28,0.06)] sm:px-8">
       <div className="grid grid-cols-[1fr_auto] gap-6">
-        <h3 className="font-serif text-[26px] font-semibold leading-snug tracking-normal text-[var(--color-ink)]">
+        <h3 className="font-serif text-[22px] font-semibold leading-snug tracking-normal text-[var(--color-ink)] [overflow-wrap:anywhere]">
           {work.title}
         </h3>
         <div className="text-right text-sm leading-7">
@@ -21,7 +21,7 @@ function WorkCard({ work }: { work: (typeof works)[number] }) {
         </div>
       </div>
       <p className="mt-5 max-w-[24rem] text-[15px] leading-8 text-[var(--color-deep)]">
-        {work.summary}
+        {work.catchcopy}
       </p>
       <Link
         className="mt-auto flex items-center justify-between border-t border-[var(--color-hairline)] pt-4 text-sm font-medium text-[var(--color-gold-text)] transition-colors hover:text-[var(--color-ink)]"
@@ -47,15 +47,15 @@ export default function Home() {
         <div className="page-frame relative z-10 flex min-h-[calc(670px-94px)] items-center py-16">
           <div className="w-full max-w-[650px] pt-1">
             <p className="font-serif text-lg leading-none text-[var(--color-gold-text)]">
-              言葉の灯りで、静かな物語を。
+              百合とダンジョン配信、わちゃわちゃした物語を。
             </p>
             <h1 className="mt-8 font-serif text-[clamp(64px,8.3vw,128px)] font-semibold leading-[1.05] tracking-normal text-[var(--color-ink)]">
               {profile.nameJa}
             </h1>
             <p className="mt-8 max-w-[34rem] font-serif text-xl leading-10 text-[var(--color-deep)]">
-              人の心の奥にある、確かな輪郭を探して。
+              現代ファンタジー、異世界ファンタジーを中心に。
               <br />
-              小説と言葉で、その景色をそっと描いています。
+              カクヨムで発表している作品と活動情報をまとめています。
             </p>
             <div className="mt-10 flex flex-col gap-5 sm:flex-row">
               <Link
@@ -69,7 +69,7 @@ export default function Home() {
                 className="inline-flex h-[68px] min-w-[246px] items-center justify-center border border-[var(--color-gold)] bg-white/55 px-10 font-serif text-lg text-[var(--color-gold-text)] transition-colors hover:bg-white"
                 to="/contact"
               >
-                問い合わせ
+              問い合わせ
                 <Arrow />
               </Link>
             </div>
@@ -87,7 +87,7 @@ export default function Home() {
               </h2>
               <div className="mx-auto mt-4 h-px w-14 bg-[var(--color-gold)]" />
               <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
-                長編小説、短編、エッセイなど。最新の掲載・連載情報はこちらからご覧いただけます。
+                現代ファンタジー、異世界ファンタジー、百合、ダンジョン配信系の作品を掲載しています。
               </p>
             </div>
             <Link

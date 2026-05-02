@@ -10,7 +10,7 @@ export function SiteFooter() {
             川野マグロ
           </Link>
           <p className="muted-text mt-3 max-w-md text-sm leading-7">
-            小説、エッセイ、掲載情報をまとめたポートフォリオです。
+            カクヨム公開作品と近況情報をまとめたポートフォリオです。
           </p>
         </div>
         <nav
@@ -28,7 +28,7 @@ export function SiteFooter() {
           ))}
         </nav>
         <p className="muted-text text-xs sm:col-span-2">
-          © 2026 Kawano Maguro
+          © 2026 川野マグロ @magurok
         </p>
       </div>
     </footer>
